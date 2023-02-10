@@ -43,7 +43,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
                 ? 
                 ($items = [
                     ['label' => 'Главная', 'url' => ['/site/index']],
-                    ['label' => 'Ппанель администратора', 'url' => ['/admin/index']],
+                    ['label' => 'Панель администратора', 'url' => ['/admin/index']],
                     ['label' => 'Профиль', 'url' => ['/user/view?id='.Yii::$app->user->identity->id]],
                     ])
                     :
@@ -89,6 +89,23 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <div class="container">
         <div class="row text-muted">
             <div class="col-md-6 text-center text-md-start text-light">&copy; Music Home <?= date('Y') ?></div>
+
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bskeyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" ariahidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel"></h1>
+                        <button type="button" class="btn-close" data-bsdismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="modalBody">
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" databs-dismiss="modal">Закрыть</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </footer>

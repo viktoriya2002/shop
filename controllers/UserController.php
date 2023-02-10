@@ -80,6 +80,7 @@ class UserController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post()) && $model->save()) {
+                \Yii::$app->user->login($model);
                 return $this->redirect(['view', 'id' => $model->id]);
             }
         } else {
@@ -90,6 +91,8 @@ class UserController extends Controller
             'model' => $model,
         ]);
     }
+
+
 
     /**
      * Updates an existing User model.

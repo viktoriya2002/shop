@@ -53,7 +53,8 @@ public function validatePassword($password)
         return $this->password === $password;
     }
 
-    public static function findByLogin($login){
+public static function findByLogin($login)
+    {
         return self::find()->where(['login'=> $login])->one();
     }
 

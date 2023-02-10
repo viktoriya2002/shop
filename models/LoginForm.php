@@ -11,7 +11,7 @@ use yii\base\Model;
  * @property-read User|null $user
  *
  */
-class LoginForm extends Model
+class LoginForm extends User
 {
     public $login;
     public $password;
@@ -31,10 +31,7 @@ class LoginForm extends Model
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
-
-
             ['password', 'validatePassword'],
-
         ];
     }
 
@@ -45,19 +42,19 @@ class LoginForm extends Model
      * @param string $attribute the attribute currently being validated
      * @param array $params the additional name-value pairs given in the rule
      */
-    public function validatePassword($attribute, $params)
+    public function validatePassword($attribute)
     {
         if (!$this->hasErrors()) {
             $user = $this->getUser();
-
+//die (print_r($user));
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Неверные логин или пароль.');
+                $this->addError($attribute, 'Incorrect login or password.');
             }
         }
     }
 
     /**
-     * Logs in a user using the provided username and password.
+     * Logs in a user using the provided login and password.
      * @return bool whether the user is logged in successfully
      */
     public function login()
@@ -69,25 +66,24 @@ class LoginForm extends Model
     }
 
     /**
-     * Finds user by [[username]]
+     * Finds user by [[login]]
      *
      * @return User|null
      */
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = User::findByLogin($this->login());
+            $this->_user = User::findByLogin($this->login);
         }
 
         return $this->_user;
     }
-
     public function attributeLabels()
     {
         return [
-            'login' => 'Логин',
-            'password' => 'Пароль',
             'rememberMe' => 'Запомнить меня',
+            'login' => 'Логин',
+            'password'=>'Пароль'
         ];
     }
 }

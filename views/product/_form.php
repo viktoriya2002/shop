@@ -10,12 +10,19 @@ use yii\boostrap5\ActiveForm;
 
 <div class="product-form">
 
-    <?php $form = \yii\bootstrap5\ActiveForm::begin(); ?>
+    <?php $form = \yii\bootstrap5\ActiveForm::begin(); 
+    $li=[]; $categories=\app\models\Category::find()->all();
+    foreach ($categories as $category)
+   { 
+   $li[$category->id]=$category->name; 
+   }
+   
+    ?>
 
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'image')->fileInput() ?>
 
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
@@ -23,7 +30,7 @@ use yii\boostrap5\ActiveForm;
 
     <?= $form->field($model, 'year')->textInput() ?>
 
-    <?= $form->field($model, 'category_id')->textInput() ?>
+    <?= $form->field($model, 'category_id')->dropDownList($li)?>
 
     <div class="form-group">
         <?= Html::submitButton('Создать', ['class' => 'btn btn-info text-light']) ?>
